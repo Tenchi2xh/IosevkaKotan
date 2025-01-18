@@ -40,7 +40,12 @@ jobs:
     - name: Build Font
       run: |
         cd iosevka
-        npm run build -- ttf::IosevkaKotan
+        npm run build -- super-ttc::IosevkaKotan
+
+    - name: Zip Build Output
+      run: |
+        cd iosevka
+        zip -r ../iosevka-kotan-dist.zip dist
 
     - name: Create Release
       uses: actions/create-release@v1
@@ -59,6 +64,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: iosevka/dist/IosevkaKotan/TTF/IosevkaKotan-Regular.ttf
-        asset_name: IosevkaKotan-Regular.ttf
-        asset_content_type: font/ttf
+        asset_path: iosevka-kotan-dist.zip
+        asset_name: IosevkaKotan.zip
+        asset_content_type: application/zip
