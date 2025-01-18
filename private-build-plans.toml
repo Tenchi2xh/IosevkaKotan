@@ -1,0 +1,36 @@
+[buildPlans.IosevkaKotan]
+family = "Iosevka Kotan"
+spacing = "term"
+serifs = "sans"
+noCvSs = true
+exportGlyphNames = false
+
+  [buildPlans.IosevkaKotan.variants]
+  inherits = "ss10"
+
+    [buildPlans.IosevkaKotan.variants.design]
+    one = "no-base"
+    capital-i = "serifless"
+    g = "single-storey-flat-hook-earless-corner"
+    i = "serifless"
+    j = "serifless"
+    l = "serifless"
+    m = "earless-corner-double-arch-serifless"
+    n = "earless-corner-straight-serifless"
+    p = "earless-corner-serifless"
+    q = "earless-corner-straight-serifless"
+    r = "earless-corner-serifless"
+    u = "toothless-corner-serifless"
+    w = "straight-serifless"
+    long-s = "flat-hook-tailed"
+    tittle = "round"
+    asterisk = "hex-low"
+    underscore = "low"
+    caret = "low"
+    brace = "straight"
+    at = "fourfold"
+    cent = "through"
+    question = "corner"
+    pilcrow = "high"
+    lig-equal-chain = "without-notch"
+    lig-hyphen-chain = "without-notch"
