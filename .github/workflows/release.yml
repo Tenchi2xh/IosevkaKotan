@@ -3,13 +3,12 @@ name: Build and Release Iosevka Kotan
 on:
   push:
     tags:
-      - "v*.*.*" # Trigger on version tags (e.g., v1.0.0)
+      - "v*.*.*"
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    concurrency: build-iosevka-kotan # Limit to one concurrent job in the GitHub Actions queue
 
     steps:
     - name: Checkout Repository
@@ -17,7 +16,7 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Set up Node.js
+    - name: Setup Node
       uses: actions/setup-node@v3
       with:
         node-version: 18
@@ -27,7 +26,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y ttfautohint
 
-    - name: Copy Custom Build Plan
+    - name: Copy Build Plan
       run: |
         cp private-build-plans.toml iosevka/
 
@@ -36,13 +35,14 @@ jobs:
         cd iosevka
         npm install
 
-    - name: Build Iosevka Kotan
+    - name: Build Font
       run: |
         cd iosevka
         npm run build -- ttf::IosevkaKotan
 
     - name: Create Release
       uses: actions/create-release@v1
+      id: create_release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -50,4 +50,13 @@ jobs:
         release_name: Iosevka Kotan ${{ github.ref_name }}
         draft: false
         prerelease: false
-        files: iosevka/dist/IosevkaKotan/**/*.ttf
+
+    - name: Upload Artifact
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: iosevka/dist/IosevkaKotan/TTF/IosevkaKotan-Regular.ttf
+        asset_name: IosevkaKotan-Regular.ttf
+        asset_content_type: font/ttf
