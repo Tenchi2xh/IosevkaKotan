@@ -40,6 +40,7 @@ jobs:
     - name: Build Font
       run: |
         cd iosevka
+        npm run build -- ttf::IosevkaKotan
         npm run build -- super-ttc::IosevkaKotan
 
     - name: Zip Build Output
