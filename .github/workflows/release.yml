@@ -39,7 +39,7 @@ jobs:
     - name: Build Iosevka Kotan
       run: |
         cd iosevka
-        npm run build -- ttf::IosevkaKotan --jCmd=1
+        npm run build -- ttf::IosevkaKotan
 
     - name: Create Release
       uses: actions/create-release@v1
@@ -50,4 +50,4 @@ jobs:
         release_name: Iosevka Kotan ${{ github.ref_name }}
         draft: false
         prerelease: false
-        files: iosevka/dist/*.ttf
+        files: iosevka/dist/IosevkaKotan/**/*.ttf
